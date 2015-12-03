@@ -1,0 +1,51 @@
+<!DOCTYPE>
+<html lang="en">
+<head>
+
+  <script type="text/javascript" src="/static/js/qwest.min.js"></script>
+  <script type="text/javascript" src="/static/js/caption.js"></script>
+  <script type="text/javascript" src="/static/js/favorites.js"></script>
+  <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <title>EECS485</title>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+  <div class="container">
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="/sksnf4gf1or/pa3/">Home</a></li>
+          {% if login %}
+          <li class="active"><a href='/sksnf4gf1or/pa3/albums'>My Albums</a></li>
+          <li class="active"><a href='/sksnf4gf1or/pa3/user/edit'>Edit Profile</a></li>
+          {% else %}
+          <li class="active"><a href='/sksnf4gf1or/pa3/albums'>Public Albums</a></li>
+          {% endif %}
+          {% if not hideLogin and not login %}
+          <li class="active"><a href='/sksnf4gf1or/pa3/user/login?url={{request.url}}'>Login</a></li>
+          {% endif %}
+          {% if login %}
+          <li class="active"><a href='/sksnf4gf1or/pa3/user/logout'>Logout</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+      <h3 class="text-muted"><a href="/sksnf4gf1or/pa3/">The Great Album Wall</a></h3>
+    </div>
+
+    {% block content %}{% block extrascripts %}{% endblock %}{% endblock %}
+
+    <footer class="footer">
+      <p>© J.P.H. Inc. 2015</p>
+    </footer>
+  </div>
+
+
+  <script type="text/javascript" src="/static/js/main.js"></script>
+  <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+</body>
+
+</html>

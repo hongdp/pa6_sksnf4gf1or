@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-xs-9">
+    </div>
+    <div class="col-xs-3">
+        <h1><a class="btn btn-default" href="./album?id={{albumid[0]}}">Back to album</a></h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <img class="img-responsive img-with-max-size" src="{{url[0]}}" alt="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div>
+                <label for="pwd">Caption:</label>
+                <input id="caption" type="text" class="form-control" name="caption" value="{{caption}}">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-3">
+            <h3>Favorites: <span id="num-favorites"></span></h3>
+        </div>
+        <div class="col-xs-5">
+            <h3>Latest favorite user: <span id="user-favorites"></span></h3>
+        </div>
+        <div class="col-xs-3">
+            {% if login %}
+            <h1>
+                <button class="btn btn-default" id="favorite-button"><span class="glyphicon glyphicon-heart"
+                                                                           aria-hidden="true"></span></button>
+            </h1>
+            {% endif %}
+        </div>
+        <div class="col-xs-1">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <a class="btn btn-primary {% if not prev %}disabled{% endif %}" href="./pic?id={{prev}}"
+               style="float:left">Prev</a>
+        </div>
+        <div class="col-xs-6">
+            <a class="btn btn-primary {% if not next %}disabled{% endif %}" href="./pic?id={{next}}"
+               style="float:right">Next</a>
+        </div>
+    </div>
+</div>
+
+{% block extrascripts %}
+<script type="text/javascript">
+        initCaption("{{ id }}");
+
+        initFavorites("{{ id }}", "{{username}}")
+
+
+
+</script>
+{% endblock %}
+{% endblock %}

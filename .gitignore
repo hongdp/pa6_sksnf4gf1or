@@ -1,0 +1,14 @@
+/pagerank/small.net.txt
+/pagerank/large.net.txt
+/pagerank/.DS_Store
+/pagerank/out.txt
+.DS_Store
+/PageRankProj
+/pagerank/large.net
+*.o
+*.net
+/pagerank/pagerank0
+/pagerank/eecs485pa5p
+eecs485pa5p
+/pa4/python/venv
+/pa4/python/utils/config_app.py

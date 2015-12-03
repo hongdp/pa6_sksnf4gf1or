@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="panel panel-warning">
+  <div class = "panel-heading">
+    <h3><center>Edit Profile</center></h3>
+  </div>
+  <div class="panel-body">
+
+
+    {% if error %}
+      <p class=error><strong>Error:</strong> {{ error }}
+    {% endif %}
+
+    <form role="form" method ="POST">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input pattern="[A-Za-z0-9_]{3,20}" required title="3 characters at least and can only have letters, digits, and underscores" type="text" class="form-control" name="username" id ="username" value="{{ userinfo[0] }}" disabled>
+      </div>
+      <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input pattern="^(?=.*\d)(?=.*[a-zA-Z])[A-Za-z0-9_]{5,15}" required title="5-15 leng, at least one letter and one digit, only letters, digits, and underscore" type="password" class="form-control" name="password" id="pwd">
+      </div>
+
+      <div class="form-group">
+        <label for="re-pwd">re-type password:</label>
+        <input type="password" class="form-control" name="re-password" id="re-pwd">
+        <span id='message'></span>
+      </div>
+
+      <div class="form-group">
+        <label for="firstname">Firstname:</label>
+        <input pattern=".{1,20}" required title="at most 20 char" type="text" class="form-control" name="firstname" id="firstname" value="{{ userinfo[1] }}">
+      </div>
+
+      <div class="form-group">
+        <label for="lastname">Lastname:</label>
+        <input pattern=".{1,20}" required title="at most 20 char" type="text" class="form-control" name="lastname" id ="lastname" value="{{ userinfo[2] }}">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input maxlength="40" required title="at most 40 char" type="email" class="form-control" name="email" id ="email" value="{{ userinfo[4] }}">
+      </div>
+
+      <center><button id='submit' type="submit" class="btn btn-default">Save</button></center>
+    </form>
+
+    <form role="form" method="POST" action="./delete">
+      <center><button type="submit" class="btn btn-danger">Delete</button></center>
+    </form>
+  </div>
+</div>
+
+</div>
+
+<script>
+  $('#pwd, #re-pwd').on('keyup', function () {
+    if ($('#pwd').val() == $('#re-pwd').val()) {
+      $('#message').html('Password Match').css('color', 'green');
+      $('#submit').prop("disabled",false);
+    } else{
+    $('#message').html('Password do not match').css('color', 'red');
+    $('#submit').prop("disabled",true);}
+  });
+</script>
+
+{% endblock %}

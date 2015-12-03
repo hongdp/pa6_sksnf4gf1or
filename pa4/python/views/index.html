@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="jumbotron">
+    <h1>Welcome to The Great Album Wall!</h1>
+    {% if username %}
+    <p>Hello, {{username}}</p>
+    <div class="container">
+      <h2>Accessable Albums</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Owners</th>
+            <th>Album Names</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set prev_username = '' %}
+          {% for album in albums %}
+          <tr>
+            {% if prev_username != album[2] %}<td rowspan={{rowspans[album[2]]}}>{{album[2]}} {% set prev_username = album[2] %}</td>{% endif %}
+            <td><a href="./album?id={{album[0]}}">{{ album[1] }}</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p>Member? Please login <a href='/sksnf4gf1or/pa3/user/login?url={{request.url}}'> here </a></p>
+    <p>New user? Join us <a href='./user'>here</a>!</p>
+    <p>Login as <a href='./albums'>guest</a>!</p>
+    {% endif %}
+
+
+  </div>
+{% endblock %}
