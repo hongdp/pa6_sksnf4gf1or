@@ -97,7 +97,8 @@ void Index_server::init(ifstream& infile)
 		for(int i = 0; i<n; i++){
 			int doc_id;
 			ss>>doc_id;
-			
+			char seperator;
+			ss >> seperator;
 			int tf;
 			ss>>tf;
 			
@@ -119,6 +120,19 @@ void Index_server::init(ifstream& infile)
 		
 		index_map[word] = w_i;
 	}
+	
+	ifstream page_rank_file("PageRank.txt");
+	if (page_rank_file) {
+		string line;
+		while (getline(page_rank_file, line)) {
+			stringstream sstream(line);
+			int doc_id;
+			double page_rank_value;
+			sstream >> doc_id >> page_rank_value;
+			pr_map[doc_id] = page_rank_value;
+		}
+	}
+	
 	// Fill in this method to load the inverted index from disk.
 	
 }
@@ -126,7 +140,7 @@ void Index_server::init(ifstream& infile)
 // Search the index for documents matching the query. The results are to be
 // placed in the supplied "hits" vector, which is guaranteed to be empty when
 // this method is called.
-void Index_server::process_query(const string& query, vector<Query_hit>& hits)
+void Index_server::process_query(const string& query, double weight, vector<Query_hit>& hits)
 {
 	struct token_info_t{
 		int feq;
@@ -192,6 +206,10 @@ void Index_server::process_query(const string& query, vector<Query_hit>& hits)
 	}
 	int query_words_num = query_words_info.size();
 	for (auto hit_it = hits_map.begin(); hit_it != hits_map.end(); hit_it++) {
+		stringstream sstream(hit_it->second.id);
+		int doc_id;
+		sstream >> doc_id;
+		hit_it->second.score = (weight * pr_map[doc_id]) + (1 - weight) * (hit_it->second.score);
 		if (query_words_num > hit_it->second.times) {
 			continue;
 		}
@@ -221,12 +239,19 @@ namespace {
 				// query, so ignore it.
 				return 1;
 			}
+			string weight;
+			double w;
+			if (get_param(request_info, "w", weight)) {
+				return 1;
+			}
+			stringstream sstream(weight);
+			sstream >> w;
 			
 			vector<Query_hit> hits;
 			Index_server *server = static_cast<Index_server *>(request_info->user_data);
 			
 			pthread_mutex_lock(&mutex);
-			server->process_query(query, hits);
+			server->process_query(query, w, hits);
 			pthread_mutex_unlock(&mutex);
 			
 			string response_data = to_json(hits);

@@ -27,7 +27,7 @@ public:
 	
 	// Methods that students must implement.
 	void init(std::ifstream& infile);
-	void process_query(const std::string& query, std::vector<Query_hit>& hits);
+	void process_query(const std::string& query, double weight, std::vector<Query_hit>& hits);
 private:
 	struct weight{
 		int doc_id;
@@ -40,6 +40,7 @@ private:
 	};
 	std::map<std::string,word_info> index_map;
 	std::set<std::string> stop_words;
+	std::map<int, double> pr_map;
 };
 
 #endif
