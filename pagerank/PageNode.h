@@ -13,7 +13,7 @@
 
 class PageNode {
 public:
-	PageNode() {};
+	PageNode():currentPR(0.0), nextPR(0), numOutLinks(0) {};
 	void initPR(double initPR);
 	void addOutLink();
 	void addContributor(const PageNode* contributor_ptr);
