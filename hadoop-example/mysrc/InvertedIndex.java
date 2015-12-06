@@ -271,7 +271,7 @@ public class InvertedIndex {
 				Long doc_id = Long.parseLong(tokenizer.nextToken());
 				Double norm = Double.parseDouble(tokenizer.nextToken());
 				df = Long.parseLong(tokenizer.nextToken());
-				result += doc_id + " " + norm + " ";
+				result += doc_id + ":" + norm + " ";
 			}
 			result = df + " " + result;
 			context.write(key, new Text(result));
