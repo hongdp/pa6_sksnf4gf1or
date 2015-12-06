@@ -13,4 +13,4 @@ xom:
 	java -Xms1024m -Xmx1024m -cp .:../lib/*:bin/ edu.umich.cse.eecs485.XOMtest
 
 clean:
-	rm -rf *.jar bin/* output
+	rm -rf *.jar bin/* output job1Output job2Output job3Output

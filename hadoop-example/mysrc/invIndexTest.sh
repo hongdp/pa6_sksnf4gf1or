@@ -2,4 +2,4 @@
 
 export JAVA_HOME=/usr
 
-../bin/hadoop jar InvertedIndex.jar edu.umich.cse.eecs485.InvertedIndex ../dataset/test output
+../bin/hadoop jar InvertedIndex.jar edu.umich.cse.eecs485.InvertedIndex ../dataset/mining.articles.xml output
