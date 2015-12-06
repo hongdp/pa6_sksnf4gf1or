@@ -24,11 +24,7 @@ import java.util.*;
 import java.text.DecimalFormat;
 
 public class InvertedIndex {
-	/*
-	 * =========================================================================
-	 * Data structure
-	 * =========================================================================
-	 */
+
 	// number of documnets
 	static Long total_doc_num = new Long(0);
 	// list of stop words
@@ -36,23 +32,15 @@ public class InvertedIndex {
 
 	public static class ParseXMLMap extends Mapper<LongWritable, Text, Text, LongWritable> {
 		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-			/*
-			 * =================================================================
-			 * Data structure
-			 * =================================================================
-			 */
+
 			// docid
 			Long doc_id = new Long(0);
 			// document content
 			String doc_body = "";
 			// count the number of documents
 			total_doc_num++;
-			/*
-			 * =================================================================
-			 * 1. get docid and article body - key, is docid - value, is
-			 * document content
-			 * =================================================================
-			 */
+
+
 			// Parse the xml and read data (page id and article body)
 			// Using XOM library
 			Builder builder = new Builder();
@@ -77,21 +65,25 @@ public class InvertedIndex {
 			}
 
 			/*
-			 * =================================================================
-			 * 2. loop through the words in the document
-			 * =================================================================
+
+			 * loop through the words in the document
 			 */
 			Pattern pattern = Pattern.compile("\\w+");
 			Matcher matcher = pattern.matcher(doc_body);
 			// term frequency in this document: word, tf
 			while (matcher.find()) {
 				// Write the parsed token
-				String word = matcher.group().toLowerCase();
-				if (!stop_words.contains(word)) {
 
+				String word = matcher.group().toLowerCase();
+
+				//non-alphanumeric
+
+				word = word.replaceAll("[^a-zA-Z0-9]", "");
+
+				// consider stopWords
+				if (!stop_words.contains(word)) {
 					String new_key = word + " " + doc_id;
 					context.write(new Text(new_key), new LongWritable(1));
-
 				}
 			}
 		}
@@ -123,12 +115,12 @@ public class InvertedIndex {
 	/*
 	 * =========================================================================
 	 * MAP REDUCE 2
-	 * 
+	 *
 	 * =========================================================================
 	 */
 	/*
 	 * =========================================================================
-	 * 
+	 *
 	 * Map: (word,(doc_id,tf)) => same
 	 * =========================================================================
 	 */
@@ -149,17 +141,17 @@ public class InvertedIndex {
 
 	/*
 	 * =========================================================================
-	 * 
-	 * 
+	 *
+	 *
 	 * Reduce: (word,(doc_id,tf)) => (word, (doc_id,tf,df))
 	 * =========================================================================
 	 */
 	public static class DocumentFrequencyReduce extends Reducer<Text, Text, Text, Text> {
 		public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-			
+
 			List<String> cache = new ArrayList<String>();
 			Long df = new Long(0);
-			
+
 			for (Text value : values) {
 				df += 1;
 				String text = new String();
@@ -172,7 +164,7 @@ public class InvertedIndex {
 //				System.out.print(new_value);
 				context.write(key, new Text(new_value));
 			}
-			
+
 
 		}
 	}
@@ -185,7 +177,7 @@ public class InvertedIndex {
 			Long doc_id, tf, df;
 
 			StringTokenizer tokenizer = new StringTokenizer(value.toString());
-			
+
 			word = tokenizer.nextToken();
 			doc_id = Long.parseLong(tokenizer.nextToken());
 			tf = Long.parseLong(tokenizer.nextToken());
@@ -203,7 +195,7 @@ public class InvertedIndex {
 
 			Double normalizer = new Double(0);
 			List<String> cache = new ArrayList<String>();
-			
+
 			for (Text value : values) {
 				String text = value.toString();
 				cache.add(text);
@@ -241,7 +233,7 @@ public class InvertedIndex {
 	/*
 	 * =========================================================================
 	 * MAP REDUCE 4
-	 * 
+	 *
 	 * =========================================================================
 	 */
 	/*
@@ -252,7 +244,7 @@ public class InvertedIndex {
 	public static class FormattingMap extends Mapper<LongWritable, Text, Text, Text> {
 		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
-			
+
 			StringTokenizer tokenizer = new StringTokenizer(value.toString());
 			Long doc_id = Long.parseLong(tokenizer.nextToken());
 			String word = tokenizer.nextToken();
@@ -279,7 +271,7 @@ public class InvertedIndex {
 				Long doc_id = Long.parseLong(tokenizer.nextToken());
 				Double norm = Double.parseDouble(tokenizer.nextToken());
 				df = Long.parseLong(tokenizer.nextToken());
-				result += doc_id + " " + norm + " ";  
+				result += doc_id + " " + norm + " ";
 			}
 			result = df + " " + result;
 			context.write(key, new Text(result));
@@ -289,7 +281,7 @@ public class InvertedIndex {
 	/*
 	 * =========================================================================
 	 * Main function: set up the three jobs Job1:
-	 * 
+	 *
 	 * =========================================================================
 	 */
 	public static void main(String[] args) throws Exception {
@@ -312,10 +304,10 @@ public class InvertedIndex {
 
 		job1.setMapOutputKeyClass(Text.class);
 		job1.setMapOutputValueClass(LongWritable.class);
-		
+
 		job1.setOutputKeyClass(Text.class);
 		job1.setOutputValueClass(Text.class);
-		
+
 		job1.setMapperClass(ParseXMLMap.class);
 		job1.setReducerClass(ParseXMLReduce.class);
 
@@ -333,10 +325,10 @@ public class InvertedIndex {
 		Configuration conf2 = new Configuration();
 
 		Job job2 = new Job(conf2, "DocumentFrequency");
-		
+
 		job2.setMapOutputKeyClass(Text.class);
 		job2.setMapOutputValueClass(Text.class);
-		
+
 		job2.setOutputKeyClass(Text.class);
 		job2.setOutputValueClass(Text.class);
 
