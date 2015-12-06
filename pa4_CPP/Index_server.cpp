@@ -82,34 +82,37 @@ void Index_server::init(ifstream& infile)
 		}
 	}
 	myFile.close();
+	ifstream num_of_docs_file("num_of_docs.txt");
+	int num_of_docs;
+	num_of_docs_file >> num_of_docs;
+	num_of_docs_file.close();
+	int counter = 0;
 	while(getline(infile, index)){
+		if (!(counter % 10000)) {
+			cout << "No." << counter << endl;
+			cout << "Index: " << index << endl;
+		}
+		counter++;
 		stringstream ss;
 		ss<<index;
 		string word;
 		ss>>word;
 		
-		double idf;
-		ss>>idf;
-		
-		int n;
-		ss>>n;
+		int df;
+		ss>>df;
 		vector<weight> ws;
-		for(int i = 0; i<n; i++){
+		double idf = log10(num_of_docs/(double)df);
+		for(int i = 0; i<df; i++){
 			int doc_id;
 			ss>>doc_id;
 			char seperator;
 			ss >> seperator;
-			int tf;
-			ss>>tf;
-			
-			double normal_factor;
-			ss>>normal_factor;
-			
-			double w = (idf*tf)/(sqrt(normal_factor));
+			double normed_tf_idf;
+			ss>>normed_tf_idf;
 			
 			weight we;
 			we.doc_id = doc_id;
-			we.weight = w;
+			we.weight = normed_tf_idf;
 			
 			ws.push_back(we);
 		}
@@ -124,7 +127,12 @@ void Index_server::init(ifstream& infile)
 	ifstream page_rank_file("PageRank.txt");
 	if (page_rank_file) {
 		string line;
+		int pageRankCounter = 0;
 		while (getline(page_rank_file, line)) {
+			if (!(pageRankCounter % 1000)) {
+				cout << "No." << pageRankCounter << endl;
+				cout << "Index: " << line << endl;
+			}
 			stringstream sstream(line);
 			int doc_id;
 			double page_rank_value;
@@ -132,7 +140,7 @@ void Index_server::init(ifstream& infile)
 			pr_map[doc_id] = page_rank_value;
 		}
 	}
-	
+	cout << "Init Finished" << endl;
 	// Fill in this method to load the inverted index from disk.
 	
 }
