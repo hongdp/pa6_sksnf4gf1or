@@ -76,14 +76,11 @@ public class InvertedIndex {
 
 				String word = matcher.group().toLowerCase();
 
-				//non-alphanumeric
-
-				word = word.replaceAll("[^a-zA-Z0-9]", "");
-
 				// consider stopWords
 				if (!stop_words.contains(word)) {
 					String new_key = word + " " + doc_id;
 					context.write(new Text(new_key), new LongWritable(1));
+
 				}
 			}
 		}
@@ -271,7 +268,7 @@ public class InvertedIndex {
 				Long doc_id = Long.parseLong(tokenizer.nextToken());
 				Double norm = Double.parseDouble(tokenizer.nextToken());
 				df = Long.parseLong(tokenizer.nextToken());
-				result += doc_id + " " + norm + " ";
+				result += doc_id + ":" + norm + " ";
 			}
 			result = df + " " + result;
 			context.write(key, new Text(result));
