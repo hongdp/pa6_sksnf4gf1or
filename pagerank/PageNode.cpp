@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <cmath>
+#include <cstdio>
 
 using namespace std;
 
@@ -18,6 +19,11 @@ int PageNode::N;
 double PageNode::currentTotalNoOutPR = .0;
 double PageNode::nextTotalNoOutPR = .0;
 int PageNode::numNodesWithNoOut = 0;
+
+void PageNode::initPR(double initPR) {
+	// printf("%f\n", initPR );
+	currentPR = initPR;
+}
 
 void PageNode::addOutLink(){
 	numOutLinks++;
