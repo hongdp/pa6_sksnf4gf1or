@@ -22,5 +22,16 @@
     </div>
 </div>
 
+<div class="row">
+    {% for page in pages %}
+    <div class="col-xs-8">
+        <a href="https://en.wikipedia.org/wiki?curid={{page.id}}">{{page.title}}</a>
+    </div>
+    <div class="col-xs-4">
+        <button></button>
+    </div>
+    {% endfor %}
+</div>
+
 
 {% endblock %}
