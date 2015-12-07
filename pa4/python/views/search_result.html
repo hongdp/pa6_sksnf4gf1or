@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="header clearfix">
+    <div class="my-row">
+        <div style="width:70%;float:left;">
+            <h3 class="text-muted" ><a href="/sksnf4gf1or/pa6/search">JPH Search</a></h3>
+        </div>
+        <div style="width: 30%; float:right; margin-top:20px">
+            <form action="./search" method="GET">
+                <div class="my-row">
+                    <div style="width:60%;float:left;"><input type="text" name="query" style="width:100%;" value="{{query}}"></div>
+                    <div style="width:40%;float:left;"><input type="submit" style="width:100%;" value="Search"></div>
+                </div>
+                <div class="my-row">
+                    <div style="width:100%;float:left;">
+                    <label for="w">PageRank Weight:</label>
+                    <input type="range" name="w" id="w" value="{{w}}" min="0" max="1" step="0.01">
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,11 +1,29 @@
 body {
-	padding-top: 20px;
+  padding-top: 20px;
 }
 
-.center {
-	margin:0 auto;
-	max-width: 1000px;
+.centered{
+  width:40%;
+  height:400px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:180px;
 }
+
+.logo{
+  width:220px;
+  margin:auto;
+}
+
+.search-box-container {
+  width: 400px;
+  margin:auto;
+}
+
+.my-row {
+  width: 100%
+}
+
 
 .footer {
   padding-top: 19px;
@@ -26,6 +44,19 @@ body {
   max-height: 660px;
   margin-left: auto;
   margin-right: auto;
+}
+
+div.search-form{
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+  position: absolute;
+  top: 311px;
+}
+
+input.search-input{
+  width: 280px;
+  height: 32px;
 }
 /*@media screen and (min-width: 768px) {
    

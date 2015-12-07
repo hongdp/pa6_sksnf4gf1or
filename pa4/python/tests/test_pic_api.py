@@ -296,7 +296,7 @@ class TestPicFavoriteAPI(unittest.TestCase):
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         sys.exit(
-            'You must pass in the hostname:port/secretkey/pa3 as a command line argument. Example usage: python test_pic_api.py http://localhost:5930/secretkey/pa3')
+            'You must pass in the hostname:port/secretkey/pa4 as a command line argument. Example usage: python test_pic_api.py http://localhost:5930/secretkey/pa4')
 
     hostname = sys.argv[1]
 

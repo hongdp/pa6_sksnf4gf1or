@@ -1,6 +1,8 @@
 from flask import Flask, render_template
+
 import controllers
 from utils import mysql, config_app, mail
+
 app = Flask(__name__, template_folder='views', static_url_path='/static')
 
 
@@ -11,6 +13,7 @@ app.register_blueprint(controllers.pic)
 app.register_blueprint(controllers.login)
 app.register_blueprint(controllers.user)
 app.register_blueprint(controllers.useredit)
+app.register_blueprint(controllers.search)
 app.secret_key = '\xfc\x9c\x90\xf0\r9\x88\xf6D\xc1\n\x96]\x7fzO8\x88O?\xa7b\xb9\xe1'
 
 
@@ -27,4 +30,4 @@ mail.init_app(app)
 # if you dont, gunicorn will ignore it anyway
 if __name__ == '__main__':
     # listen on external IPs
-    app.run(host='0.0.0.0', port=3000, debug=True)
+    app.run(host='0.0.0.0', port=5688, debug=True)

@@ -30,7 +30,7 @@ function makeCaptionPostRequest(picid, caption, cb) {
     'caption': caption
   };
 
-  qwest.post('/sksnf4gf1or/pa3/pic/caption', data, {
+  qwest.post('/sksnf4gf1or/pa4/pic/caption', data, {
     dataType: 'json',
     responseType: 'json'
   }).then(function(xhr, resp) {
@@ -39,7 +39,7 @@ function makeCaptionPostRequest(picid, caption, cb) {
 }
 
 function makeCaptionRequest(picid, cb) {
-  qwest.get('/sksnf4gf1or/pa3/pic/caption?id=' + picid)
+  qwest.get('/sksnf4gf1or/pa4/pic/caption?id=' + picid)
     .then(function(xhr, resp) {
       cb(resp);
     });
