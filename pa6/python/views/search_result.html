@@ -26,7 +26,7 @@
     {% for page in pages %}
     <div class="row">
         <div class="col-xs-8">
-            <a href="https://en.wikipedia.org/wiki?curid={{page.id}}">{{page.title}}</a><br>
+            <a href="https://en.wikipedia.org/wiki?curid={{page.id}}">{{page.title}} (https://en.wikipedia.org/wiki?curid={{page.id}})</a><br>
             <div id="sum{{page.id}}" style="display: none">
                 <image id="img{{page.id}}"></image>
                 <h3>Categories</h3>
