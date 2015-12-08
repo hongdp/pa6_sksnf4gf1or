@@ -6,3 +6,4 @@ from main import *
 from user import *
 from useredit import *
 from search import *
+from getdetail import *
