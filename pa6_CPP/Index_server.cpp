@@ -86,13 +86,17 @@ void Index_server::init(ifstream& infile)
 	int num_of_docs;
 	num_of_docs_file >> num_of_docs;
 	num_of_docs_file.close();
+#ifdef DEBUG
 	int counter = 0;
+#endif
 	while(getline(infile, index)){
+#ifdef DEBUG
 		if (!(counter % 10000)) {
 			cout << "No." << counter << endl;
 			cout << "Index: " << index << endl;
 		}
 		counter++;
+#endif
 		stringstream ss;
 		ss<<index;
 		string word;
@@ -127,16 +131,21 @@ void Index_server::init(ifstream& infile)
 	ifstream page_rank_file("PageRank.txt");
 	if (page_rank_file) {
 		string line;
+#ifdef DEBUG
 		int pageRankCounter = 0;
+#endif
 		while (getline(page_rank_file, line)) {
+#ifdef DEBUG
 			if (!(pageRankCounter % 1000)) {
 				cout << "No." << pageRankCounter << endl;
 				cout << "Index: " << line << endl;
 			}
+#endif
 			stringstream sstream(line);
 			int doc_id;
 			double page_rank_value;
-			sstream >> doc_id >> page_rank_value;
+			char seperator;
+			sstream >> doc_id >> seperator >> page_rank_value;
 			pr_map[doc_id] = page_rank_value;
 		}
 	}

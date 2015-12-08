@@ -24,7 +24,7 @@ def search_route():
     page_info = []
     con = mysql.connection
     result_list = result['hits']
-    for obj in result_list:
+    for obj in result_list[:10]:
 
     #    page info : array of id,title.
         cur = con.cursor()

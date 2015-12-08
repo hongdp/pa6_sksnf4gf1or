@@ -27,14 +27,16 @@
     <div class="row">
         <div class="col-xs-8">
             <a href="https://en.wikipedia.org/wiki?curid={{page.id}}">{{page.title}}</a><br>
-            <div id="sum{{page.id}}">
+            <div id="sum{{page.id}}" style="display: none">
                 <image id="img{{page.id}}"></image>
+                <h3>Categories</h3>
                 <p id="cate{{page.id}}"></p>
+                <h3>Summery</h3>
                 <p id="sumtext{{page.id}}"></p>
             </div>
         </div>
         <div class="col-xs-4">
-            <button id="btn{{page.id}}" onclick="getSummary(this.id)">Show</button>
+            <button id="btn{{page.id}}" onclick="getSummary({{page.id}})">Show</button>
         </div>
     </div>
     {% endfor %}

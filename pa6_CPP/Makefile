@@ -15,8 +15,8 @@ INDEXER = indexer
 
 default: $(SERVER) $(INDEXER)
 
-debug: CFLAGS += -g
-debug: SERVER_LFLAGS += -g
+debug: CFLAGS += -g -D DEBUG
+debug: SERVER_LFLAGS += -g -D DEBUG
 debug: INDEXER_LFLAGS += -g
 debug: $(SERVER) $(INDEXER)
 

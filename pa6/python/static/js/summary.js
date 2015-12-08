@@ -4,12 +4,12 @@ function getSummary(page_id) {
         $("#btn"+page_id).text("Show");
     } else {
         $.get(
-            "/getdetail",
+            "/sksnf4gf1or/pa6/getdetail",
             {page_id: page_id},
             function (data, status) {
                 $("#sum"+page_id).show();
-                $("#img"+page_id).src = data.imageUrl;
-                $("#cate"+page_id).text(data.categrories);
+                $("#img"+page_id).attr("src", data.imageUrl);
+                $("#cate"+page_id).text(data.categories);
                 $("#sumtext"+page_id).text(data.summary);
                 $("#btn"+page_id).text("Hide");
             }

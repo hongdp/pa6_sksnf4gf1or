@@ -1,6 +1,4 @@
 from flask import *
-import json
-
 from utils import *
 
 getdetail = Blueprint('getdetail', __name__, template_folder='views')
@@ -8,9 +6,8 @@ getdetail = Blueprint('getdetail', __name__, template_folder='views')
 
 @getdetail.route(append_key('/getdetail'), methods=['GET'])
 def detail_route():
-    req_json = request.get_json()
 
-    pageid = req_json.get('page_id')
+    pageid = request.args.get('page_id')
 
     if pageid is None:
         response = json.jsonify(error='You did not provide an id parameter.', status=404)
@@ -30,10 +27,10 @@ def detail_route():
     query = "SELECT article_category FROM Category WHERE article_id='%s';" % pageid
     cur.execute(query)
     result = cur.fetchall()
-    categories = []
+    categories = ""
     for category in result:
-        categories.append(category[0])
+        categories +=  category[0]+" "
 
-    response = json.jsonify(imageUrl=info[0][2], summary=info[0][1], categories=categories, status=201)
+    response = json.jsonify(imageUrl=info[0][1], summary=info[0][0], categories=categories, status=201)
     response.status_code = 201
     return response

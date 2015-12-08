@@ -10,8 +10,8 @@
 /pagerank/pagerank0
 /pagerank/eecs485pa5p
 eecs485pa5p
-/pa4/python/venv
-/pa4/python/utils/config_app.py
+/pa6/python/venv
+/pa6/python/utils/config_app.py
 /indexServer-proj
 /pagerank-proj
 /hadoop-example.tar.gz
@@ -20,5 +20,5 @@ eecs485pa5p
 /hadoop-example/RemoteSystemsTempFiles/
 /hadoop-example/dataset/
 /invertedIndex/
-/pa4_CPP/indexServer
-/pa4_CPP/indexer
+/pa6_CPP/indexServer
+/pa6_CPP/indexer
