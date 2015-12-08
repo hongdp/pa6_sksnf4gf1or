@@ -22,16 +22,24 @@
     </div>
 </div>
 
-<div class="row">
+<div>
     {% for page in pages %}
-    <div class="col-xs-8">
-        <a href="https://en.wikipedia.org/wiki?curid={{page.id}}">{{page.title}}</a>
-    </div>
-    <div class="col-xs-4">
-        <button></button>
+    <div class="row">
+        <div class="col-xs-8">
+            <a href="https://en.wikipedia.org/wiki?curid={{page.id}}">{{page.title}}</a><br>
+            <div id="sum{{page.id}}">
+                <image id="img{{page.id}}"></image>
+                <p id="cate{{page.id}}"></p>
+                <p id="sumtext{{page.id}}"></p>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <button id="btn{{page.id}}" onclick="getSummary(this.id)">Show</button>
+        </div>
     </div>
     {% endfor %}
 </div>
+
 
 
 {% endblock %}
